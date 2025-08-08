@@ -7,15 +7,16 @@ assignees: ''
 
 ---
 
-**As a** developer  
-**I need** to set up my local development environment  
-**So that** I can run, test, and modify the microservice code efficiently
+**As a** [role]  
+**I need** [function]  
+**So that** [benefit]
 
 ### Details and Assumptions
-* The required tools include Node.js, Docker, and a code editor.
+* [document what you know]
 
 ### Acceptance Criteria
+
 ```gherkin
-Given I have a clean system  
-When I follow the setup instructions  
-Then I should be able to run the microservice locally
+Given [some context]  
+When [certain action is taken]  
+Then [the outcome of action is observed]
