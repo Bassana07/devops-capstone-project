@@ -37,7 +37,7 @@ class TestAccountService(TestCase):
         app.logger.setLevel(logging.CRITICAL)
         init_db(app)
         talisman.force_https = False
-        
+
 
     @classmethod
     def tearDownClass(cls):
@@ -142,6 +142,14 @@ class TestAccountService(TestCase):
 
     # ADD YOUR TEST CASES HERE ...
 
+    # HEADER CORS
+    def test_cors_security(self):
+        """Il devrait renvoyer un en-tête CORS"""
+        response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Vérifiez la présence de l'en-tête CORS
+        self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
+        
     # READ TESTS
     def test_get_account(self):
         """It should Read a single Account"""
