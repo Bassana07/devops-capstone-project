@@ -13,17 +13,13 @@ spec:
     - name: pipeline-workspace
   params:
     - name: repo-url
+      type: string
     - name: branch
       default: main
     - name: build-image
+      type: string
+      
   tasks:
-    - name: init
-      workspaces:
-        - name: source
-          workspace: pipeline-workspace          
-      taskRef:
-        name: cleanup
-
     - name: clone
       workspaces:
         - name: output
@@ -31,12 +27,10 @@ spec:
       taskRef:
         name: git-clone
       params:
-      - name: url
-        value: $(params.repo-url)
-      - name: revision
-        value: $(params.branch)
-      runAfter:
-        - init
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
 
     - name: lint
       workspaces:
@@ -45,13 +39,13 @@ spec:
       taskRef:
         name: flake8
       params:
-      - name: image
-        value: "python:3.9-slim"
-      - name: args
-        value: ["--count","--max-complexity=10","--max-line-length=127","--statistics"]
+        - name: image
+          value: "python:3.9-slim"
+        - name: args
+          value: ["--count","--max-complexity=10","--max-line-length=127","--statistics"]
       runAfter:
         - clone
-        
+                
     - name: tests
       workspaces:
         - name: source
